@@ -117,7 +117,7 @@
             @if($navLayanans->count() > 0)
             <div class="nav-dropdown">
                 @foreach($navLayanans as $navLayanan)
-                    <a href="{{ route('layanan') }}#layanan-{{ $navLayanan->id }}">{{ $navLayanan->nama }}</a>
+                    <a href="{{ route('layanan.detail', $navLayanan->slug) }}">{{ $navLayanan->nama }}</a>
                 @endforeach
                 <hr class="nav-dropdown-divider">
                 <a href="{{ route('layanan') }}" style="color:#1a6fd4;font-weight:600">Lihat Semua →</a>

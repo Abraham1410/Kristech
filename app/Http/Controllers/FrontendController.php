@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Beranda;
 use App\Models\Layanan;
 use App\Models\Proyek;
@@ -20,6 +21,12 @@ class FrontendController extends Controller
     public function layanan() {
         $layanans = Layanan::where('aktif', true)->orderBy('urutan')->get();
         return view('frontend.layanan', compact('layanans'));
+    }
+
+    public function layananDetail($slug) {
+        $layanan = Layanan::where('slug', $slug)->where('aktif', true)->firstOrFail();
+        $layanans = Layanan::where('aktif', true)->orderBy('urutan')->get();
+        return view('frontend.layanan-detail', compact('layanan', 'layanans'));
     }
 
     public function proyek() {
@@ -43,7 +50,6 @@ class FrontendController extends Controller
             'email' => 'required|email',
             'pesan' => 'required|string',
         ]);
-
         Pesan::create($request->only('nama','email','telepon','pesan'));
         return back()->with('success', 'Pesan Anda berhasil dikirim! Kami akan segera menghubungi Anda.');
     }

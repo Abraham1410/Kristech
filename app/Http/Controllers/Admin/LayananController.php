@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class LayananController extends Controller
 {
@@ -28,6 +28,7 @@ class LayananController extends Controller
 
         $data = $request->only('nama', 'deskripsi', 'icon', 'urutan');
         $data['aktif'] = $request->has('aktif') ? true : false;
+        $data['slug'] = Str::slug($request->nama);
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('layanan', 'public');
@@ -50,6 +51,7 @@ class LayananController extends Controller
 
         $data = $request->only('nama', 'deskripsi', 'icon', 'urutan');
         $data['aktif'] = $request->has('aktif') ? true : false;
+        $data['slug'] = Str::slug($request->nama);
 
         if ($request->hasFile('foto')) {
             if ($layanan->foto) Storage::disk('public')->delete($layanan->foto);
