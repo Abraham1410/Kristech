@@ -151,7 +151,7 @@
         </div>
         <div class="reveal delay-3">
             <h4>Kontak</h4>
-            <p>📞 +625162817158</p><br>
+            <p>📞 +6285162817158</p><br>
             <p>✉️ info@kristechsolusindo.com</p>
         </div>
     </div>

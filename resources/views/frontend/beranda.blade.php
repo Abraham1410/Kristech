@@ -253,7 +253,7 @@
             <h2 style="font-size:34px;font-weight:800;color:#1a2e4a;margin-bottom:14px">Hubungi Kami</h2>
             <p style="font-size:15px;color:#666;line-height:1.7;margin-bottom:28px">Siap membantu kebutuhan mekanikal elektrikal Anda. Tim kami akan merespons dalam 1x24 jam.</p>
             <div class="kontak-detail">
-                <div class="kontak-detail-item"><span class="icon">📞</span><span class="text">+625162817158</span></div>
+                <div class="kontak-detail-item"><span class="icon">📞</span><span class="text">+6285162817158</span></div>
                 <div class="kontak-detail-item"><span class="icon">✉️</span><span class="text">info@kristechsolusindo.com</span></div>
                 <div class="kontak-detail-item"><span class="icon">⏰</span><span class="text">Senin - Sabtu, 08.00 - 17.00 WIB</span></div>
             </div>
