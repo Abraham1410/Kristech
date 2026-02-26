@@ -11,29 +11,48 @@
         position: relative;
         overflow: hidden;
     }
-    .page-hero::before {
-        content: '';
-        position: absolute;
-        top: -40%; left: -10%;
-        width: 500px; height: 500px;
-        background: rgba(26,111,212,0.15);
-        border-radius: 50%;
-    }
-    .page-hero-content { position: relative; z-index: 1; }
-    .page-hero h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; animation: fadeUp 0.8s ease forwards; }
-    .page-hero p { font-size: 16px; color: rgba(255,255,255,0.75); animation: fadeUp 0.8s ease 0.2s both; }
+    .page-hero::before { content:''; position:absolute; top:-40%;left:-10%; width:500px;height:500px; background:rgba(26,111,212,0.15); border-radius:50%; }
+    .page-hero-content { position:relative; z-index:1; }
+    .page-hero h1 { font-size:44px; font-weight:800; margin-bottom:12px; animation: fadeUp 0.8s ease forwards; }
+    .page-hero p { font-size:16px; color:rgba(255,255,255,0.75); animation: fadeUp 0.8s ease 0.2s both; }
     .breadcrumb { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:14px; animation: fadeUp 0.8s ease 0.1s both; }
     .breadcrumb a { color:rgba(255,255,255,0.6); text-decoration:none; }
     .breadcrumb a:hover { color:#fff; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
+    .section { padding:70px 60px; }
+    .section-tag { display:inline-block; background:#e8f0fe; color:#1a6fd4; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:12px; }
+
+    /* ===== PROYEK SECTION ===== */
+    .proyek-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1100px;
+        margin: 50px auto 0;
+    }
+    .proyek-card {
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .proyek-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+    .proyek-card-foto-wrap { overflow: hidden; }
+    .proyek-card-foto { width:100%; height:280px; object-fit:cover; display:block; transition:transform 0.5s; }
+    .proyek-card:hover .proyek-card-foto { transform: scale(1.04); }
+    .proyek-card-info { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .proyek-card-info h4 { font-size:18px; font-weight:700; color:#1a2e4a; margin-bottom:6px; }
+    .proyek-card-info p { font-size:13px; color:#777; line-height:1.6; }
+    .proyek-arrow { width:40px; height:40px; min-width:40px; background:#f0f6ff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; color:#1a6fd4; transition:all 0.3s; }
+    .proyek-card:hover .proyek-arrow { background:#1a6fd4; color:#fff; transform:translateX(4px); }
+
+    /* ===== GALERI SECTION ===== */
     .filter-bar { background:#fff; padding:20px 60px; display:flex; align-items:center; gap:10px; box-shadow:0 2px 10px rgba(0,0,0,0.06); flex-wrap:wrap; }
     .filter-label { font-size:13px; font-weight:600; color:#888; margin-right:4px; }
     .filter-btn { padding:8px 20px; border-radius:50px; font-size:13px; font-weight:600; cursor:pointer; border:2px solid #e8e8e8; background:#fff; color:#555; transition:all 0.25s; font-family:inherit; }
     .filter-btn:hover, .filter-btn.active { background:#1a6fd4; border-color:#1a6fd4; color:#fff; }
-
-    .section { padding:70px 60px; }
-    .section-tag { display:inline-block; background:#e8f0fe; color:#1a6fd4; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:12px; }
 
     .porto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1100px; margin:40px auto 0; }
     .porto-card { border-radius:14px; overflow:hidden; background:#f0f0f0; position:relative; cursor:pointer; aspect-ratio:4/3; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:transform 0.3s, box-shadow 0.3s; }
@@ -62,6 +81,7 @@
 
     @media (max-width:768px) {
         .porto-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+        .proyek-grid { grid-template-columns:1fr; }
         .filter-bar { padding:16px 20px; }
         .section { padding:50px 20px; }
         .stats-strip { grid-template-columns:repeat(2,1fr); padding:40px 20px; }
@@ -80,6 +100,37 @@
     </div>
 </div>
 
+{{-- ===== SECTION PROYEK ===== --}}
+@php
+    $proyeks = \App\Models\Proyek::where('aktif', true)->orderBy('urutan')->get();
+@endphp
+@if($proyeks->count() > 0)
+<div class="section" style="background:#fff;text-align:center">
+    <div class="reveal">
+        <span class="section-tag">Proyek</span>
+        <h2 style="font-size:34px;font-weight:800;color:#1a2e4a;margin-bottom:10px">Proyek Kami</h2>
+        <p style="font-size:15px;color:#666">Beberapa hasil kerja kami di bidang Mekanikal Elektrikal</p>
+    </div>
+    <div class="proyek-grid">
+        @foreach($proyeks as $i => $proyek)
+        <div class="proyek-card reveal delay-{{ ($i % 2) + 1 }}">
+            <div class="proyek-card-foto-wrap">
+                <img src="{{ Storage::url($proyek->foto) }}" alt="{{ $proyek->judul }}" class="proyek-card-foto">
+            </div>
+            <div class="proyek-card-info">
+                <div>
+                    <h4>{{ $proyek->judul }}</h4>
+                    <p>{{ Str::limit($proyek->deskripsi, 100) }}</p>
+                </div>
+                <div class="proyek-arrow">→</div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
+
+{{-- ===== SECTION GALERI ===== --}}
 @if($portofolios->count() > 0)
 @php $kategoris = $portofolios->pluck('kategori')->filter()->unique()->values(); @endphp
 @if($kategoris->count() > 0)
@@ -95,8 +146,8 @@
 <div class="section" style="background:#f8f9fa;text-align:center">
     <div class="reveal">
         <span class="section-tag">Galeri</span>
-        <h2 style="font-size:34px;font-weight:800;color:#1a2e4a;margin-bottom:8px">Proyek yang Telah Kami Kerjakan</h2>
-        <p style="font-size:14px;color:#888">Klik foto untuk melihat lebih besar</p>
+        <h2 style="font-size:34px;font-weight:800;color:#1a2e4a;margin-bottom:8px">Galeri Proyek</h2>
+        <p style="font-size:14px;color:#888">Proyek kami yang mencerminkan keahlian dan profesionalisme</p>
     </div>
     <div class="porto-grid">
         @foreach($portofolios as $i => $porto)
@@ -129,6 +180,7 @@
     <img class="lightbox-img" id="lightboxImg" src="" alt="">
     <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
+
 @endsection
 
 @section('scripts')
@@ -152,11 +204,9 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         const filter = btn.dataset.filter;
         document.querySelectorAll('.porto-card').forEach(card => {
             const show = filter === 'all' || card.dataset.category === filter;
-            card.style.transition = 'opacity 0.3s, transform 0.3s';
             card.style.opacity = show ? '1' : '0';
             card.style.transform = show ? '' : 'scale(0.95)';
             card.style.display = show ? '' : 'none';
-            if(show) setTimeout(() => { card.style.display=''; card.style.opacity='1'; }, 10);
         });
     });
 });

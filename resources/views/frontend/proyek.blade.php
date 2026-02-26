@@ -3,26 +3,78 @@
 
 @section('styles')
 <style>
-    .page-hero { background:#1a2e4a; padding:60px 40px; text-align:center; color:#fff; }
-    .page-hero h1 { font-size:38px; font-weight:700; margin-bottom:10px; }
-    .page-hero p { font-size:15px; color:#aaa; }
+    .page-hero {
+        background: linear-gradient(135deg, #1a2e4a 0%, #1a4a7a 100%);
+        padding: 80px 40px;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+    .page-hero::before { content:''; position:absolute; top:-40%;left:-10%; width:500px;height:500px; background:rgba(26,111,212,0.15); border-radius:50%; }
+    .page-hero-content { position:relative; z-index:1; }
+    .page-hero h1 { font-size:44px; font-weight:800; margin-bottom:12px; }
+    .page-hero p { font-size:16px; color:rgba(255,255,255,0.75); }
+    .breadcrumb { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:14px; }
+    .breadcrumb a { color:rgba(255,255,255,0.6); text-decoration:none; }
+    .breadcrumb a:hover { color:#fff; }
 
     .section { padding:80px 60px; }
-    .section-title { font-size:32px; font-weight:700; color:#1a2e4a; margin-bottom:10px; text-align:center; }
-    .section-sub { font-size:15px; color:#666; margin-bottom:50px; text-align:center; }
+    .section-tag { display:inline-block; background:#e8f0fe; color:#1a6fd4; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:12px; }
 
-    .proyek-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:30px; max-width:1100px; margin:0 auto; }
-    .proyek-card { border-radius:10px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:transform 0.2s; background:#fff; }
-    .proyek-card:hover { transform:translateY(-4px); }
-    .proyek-card img { width:100%; height:240px; object-fit:cover; display:block; }
-    .proyek-info { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; }
-    .proyek-info h4 { font-size:17px; font-weight:600; color:#1a2e4a; }
-    .proyek-info p { font-size:13px; color:#888; margin-top:4px; }
-    .proyek-badge { background:#e8f0fe; color:#1a6fd4; font-size:12px; padding:4px 10px; border-radius:12px; }
+    /* PROYEK GRID */
+    .proyek-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1100px;
+        margin: 50px auto 0;
+    }
+    .proyek-card {
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+    .proyek-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+    .proyek-card-foto {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+    }
+    .proyek-card:hover .proyek-card-foto { transform: scale(1.04); }
+    .proyek-card-foto-wrap { overflow: hidden; }
+    .proyek-card-info {
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+    .proyek-card-info h4 { font-size: 18px; font-weight: 700; color: #1a2e4a; margin-bottom: 6px; }
+    .proyek-card-info p { font-size: 13px; color: #777; line-height: 1.6; }
+    .proyek-arrow {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        background: #f0f6ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #1a6fd4;
+        transition: all 0.3s;
+    }
+    .proyek-card:hover .proyek-arrow { background: #1a6fd4; color: #fff; transform: translateX(4px); }
 
-    .empty-state { text-align:center; padding:60px; color:#888; }
+    .empty-state { text-align:center; padding:80px; color:#888; }
 
-    @media(max-width:768px) {
+    @media (max-width:768px) {
         .proyek-grid { grid-template-columns:1fr; }
         .section { padding:50px 20px; }
         .page-hero h1 { font-size:28px; }
@@ -33,27 +85,35 @@
 @section('content')
 
 <div class="page-hero">
-    <h1>Proyek</h1>
-    <p>Beberapa hasil kerja kami di bidang Mekanikal Elektrikal</p>
+    <div class="page-hero-content">
+        <div class="breadcrumb"><a href="{{ route('home') }}">Beranda</a> › Proyek</div>
+        <h1>Proyek Kami</h1>
+        <p>Beberapa hasil kerja kami di bidang Mekanikal Elektrikal</p>
+    </div>
 </div>
 
-<div class="section" style="background:#fff">
-    <h2 class="section-title">Daftar Proyek</h2>
-    <p class="section-sub">Proyek yang telah kami selesaikan dengan standar kualitas tinggi</p>
+<div class="section" style="background:#fff;text-align:center">
+    <div class="reveal">
+        <span class="section-tag">Proyek</span>
+        <h2 style="font-size:34px;font-weight:800;color:#1a2e4a;margin-bottom:10px">Daftar Proyek Kami</h2>
+        <p style="font-size:15px;color:#666">Proyek yang telah kami selesaikan dengan standar kualitas tinggi</p>
+    </div>
 
     @if($proyeks->count() > 0)
     <div class="proyek-grid">
-        @foreach($proyeks as $proyek)
-        <div class="proyek-card">
-            <img src="{{ Storage::url($proyek->foto) }}" alt="{{ $proyek->judul }}">
-            <div class="proyek-info">
+        @foreach($proyeks as $i => $proyek)
+        <div class="proyek-card reveal delay-{{ ($i % 2) + 1 }}">
+            <div class="proyek-card-foto-wrap">
+                <img src="{{ Storage::url($proyek->foto) }}"
+                     alt="{{ $proyek->judul }}"
+                     class="proyek-card-foto">
+            </div>
+            <div class="proyek-card-info">
                 <div>
                     <h4>{{ $proyek->judul }}</h4>
-                    <p>{{ Str::limit($proyek->deskripsi, 80) }}</p>
+                    <p>{{ Str::limit($proyek->deskripsi, 100) }}</p>
                 </div>
-                @if($proyek->kategori)
-                <span class="proyek-badge">{{ $proyek->kategori }}</span>
-                @endif
+                <div class="proyek-arrow">→</div>
             </div>
         </div>
         @endforeach
