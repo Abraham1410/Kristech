@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
@@ -18,11 +20,20 @@ class LayananController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'urutan' => 'integer',
+            'urutan'    => 'integer',
+            'foto'      => 'nullable|image|max:2048',
         ]);
-        Layanan::create($request->only('nama','deskripsi','icon','aktif','urutan'));
+
+        $data = $request->only('nama', 'deskripsi', 'icon', 'urutan');
+        $data['aktif'] = $request->has('aktif') ? true : false;
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('layanan', 'public');
+        }
+
+        Layanan::create($data);
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil ditambahkan!');
     }
 
@@ -32,14 +43,25 @@ class LayananController extends Controller
 
     public function update(Request $request, Layanan $layanan) {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'foto'      => 'nullable|image|max:2048',
         ]);
-        $layanan->update($request->only('nama','deskripsi','icon','aktif','urutan'));
+
+        $data = $request->only('nama', 'deskripsi', 'icon', 'urutan');
+        $data['aktif'] = $request->has('aktif') ? true : false;
+
+        if ($request->hasFile('foto')) {
+            if ($layanan->foto) Storage::disk('public')->delete($layanan->foto);
+            $data['foto'] = $request->file('foto')->store('layanan', 'public');
+        }
+
+        $layanan->update($data);
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil diupdate!');
     }
 
     public function destroy(Layanan $layanan) {
+        if ($layanan->foto) Storage::disk('public')->delete($layanan->foto);
         $layanan->delete();
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil dihapus!');
     }

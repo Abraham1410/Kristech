@@ -13,26 +13,63 @@
     .breadcrumb a:hover { color:#fff; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
-    .section { padding:80px 60px; }
-    .section-tag { display:inline-block; background:#e8f0fe; color:#1a6fd4; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:12px; }
-    .section-title { font-size:36px; font-weight:800; color:#1a2e4a; margin-bottom:14px; }
-    .section-sub { font-size:15px; color:#666; line-height:1.8; max-width:680px; }
+    /* LAYANAN SECTION */
+    .layanan-section {
+        padding: 70px 60px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
 
-    /* LAYANAN GRID */
-    .layanan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:50px auto 0; }
-    .layanan-card { background:#fff; border-radius:16px; padding:32px 26px; box-shadow:0 4px 20px rgba(0,0,0,0.06); border:2px solid transparent; transition:all 0.3s; position:relative; overflow:hidden; }
-    .layanan-card::before { content:''; position:absolute; top:0;left:0; width:4px;height:100%; background:#1a6fd4; transform:scaleY(0); transform-origin:top; transition:transform 0.3s; }
-    .layanan-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(26,111,212,0.12); border-color:#e8f0fe; }
-    .layanan-card:hover::before { transform:scaleY(1); }
-    .layanan-icon-wrap { width:60px; height:60px; background:linear-gradient(135deg,#e8f0fe,#d0e4ff); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:20px; transition:transform 0.3s; }
-    .layanan-card:hover .layanan-icon-wrap { transform:rotate(5deg) scale(1.1); }
-    .layanan-card h4 { font-size:17px; font-weight:700; color:#1a2e4a; margin-bottom:10px; }
-    .layanan-card p { font-size:14px; color:#666; line-height:1.7; }
-    .layanan-card .learn-more { display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-size:13px; font-weight:600; color:#1a6fd4; text-decoration:none; transition:gap 0.2s; }
-    .layanan-card:hover .learn-more { gap:10px; }
+    .layanan-item {
+        margin-bottom: 80px;
+        padding-bottom: 80px;
+        border-bottom: 1px solid #eee;
+    }
+    .layanan-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .layanan-item-header {
+        margin-bottom: 20px;
+    }
+    .layanan-item-header h2 {
+        font-size: 42px;
+        font-weight: 800;
+        color: #1a2e4a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+    .layanan-item-desc {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.8;
+        max-width: 800px;
+        margin-bottom: 30px;
+    }
+    .layanan-item-foto {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+    }
+    .layanan-item-foto-placeholder {
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(135deg, #e8f0fe, #d0e4ff);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+    }
 
     /* PROSES KERJA */
     .proses-section { background:#f8f9fa; padding:80px 60px; text-align:center; }
+    .section-tag { display:inline-block; background:#e8f0fe; color:#1a6fd4; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:12px; }
     .proses-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1000px; margin:50px auto 0; position:relative; }
     .proses-grid::before { content:''; position:absolute; top:32px; left:10%; right:10%; height:2px; background:linear-gradient(to right,#1a6fd4,#4d9fff); z-index:0; }
     .proses-item { position:relative; z-index:1; }
@@ -51,10 +88,11 @@
     .empty-state { text-align:center; padding:80px; color:#888; }
 
     @media (max-width:768px) {
-        .layanan-grid { grid-template-columns:1fr; }
+        .layanan-section { padding:40px 20px; }
+        .layanan-item-header h2 { font-size:28px; }
         .proses-grid { grid-template-columns:repeat(2,1fr); }
         .proses-grid::before { display:none; }
-        .section,.proses-section { padding:50px 20px; }
+        .proses-section { padding:50px 20px; }
         .page-hero h1 { font-size:28px; }
     }
 </style>
@@ -70,28 +108,30 @@
     </div>
 </div>
 
-<div class="section" style="background:#fff">
-    <div class="reveal">
-        <span class="section-tag">Layanan</span>
-        <h2 class="section-title">Apa yang Kami Tawarkan</h2>
-        <p class="section-sub">Kami menerima pekerjaan pemasangan CCTV, Access Card, Smart Doorlock, Wifi, Network management, Panel Listrik, Pemipaan, AC, Fire alarm, dan IOT</p>
-    </div>
-
-    @if($layanans->count() > 0)
-    <div class="layanan-grid">
-        @foreach($layanans as $i => $layanan)
-        <div class="layanan-card reveal delay-{{ ($i % 3) + 1 }}">
-            <div class="layanan-icon-wrap">{{ $layanan->icon ?? '⚡' }}</div>
-            <h4>{{ $layanan->nama }}</h4>
-            <p>{{ $layanan->deskripsi }}</p>
-            <a href="{{ route('tentang') }}" class="learn-more">Pelajari lebih lanjut →</a>
+@if($layanans->count() > 0)
+<div class="layanan-section">
+    @foreach($layanans as $i => $layanan)
+    <div class="layanan-item reveal">
+        <div class="layanan-item-header">
+            <h2>{{ $layanan->nama }}</h2>
         </div>
-        @endforeach
+        <p class="layanan-item-desc">{{ $layanan->deskripsi }}</p>
+
+        @if($layanan->foto)
+            <img src="{{ Storage::url($layanan->foto) }}"
+                 alt="{{ $layanan->nama }}"
+                 class="layanan-item-foto">
+        @else
+            <div class="layanan-item-foto-placeholder">
+                {{ $layanan->icon ?? '⚡' }}
+            </div>
+        @endif
     </div>
-    @else
-    <div class="empty-state"><p style="font-size:40px">⚡</p><p>Layanan sedang diperbarui.</p></div>
-    @endif
+    @endforeach
 </div>
+@else
+<div class="empty-state"><p style="font-size:40px">⚡</p><p>Layanan sedang diperbarui.</p></div>
+@endif
 
 {{-- PROSES KERJA --}}
 <div class="proses-section">
