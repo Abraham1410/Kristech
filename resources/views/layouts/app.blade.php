@@ -56,6 +56,11 @@
         @keyframes pulse-wa { 0%, 100% { box-shadow: 0 4px 15px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 25px rgba(37,211,102,0.7); } }
         .footer { background: #1a2e4a; padding: 60px 60px 30px; color: #aaa; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+        .footer-kerjasama { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px; margin-bottom: 30px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+        .footer-kerjasama h4 { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .kerjasama-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .kerjasama-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #ccc; font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; transition: all 0.2s; }
+        .kerjasama-badge:hover { background: rgba(255,255,255,0.15); color: #fff; }
         .footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 18px; }
         .footer p { font-size: 14px; line-height: 1.8; }
         .footer a { color: #aaa; text-decoration: none; font-size: 14px; display: block; margin-bottom: 10px; transition: all 0.2s; padding-left: 0; }
@@ -152,7 +157,17 @@
         <div class="reveal delay-3">
             <h4>Kontak</h4>
             <p>📞 +6285162817158</p><br>
-            <p>✉️ info@kristechsolusindo.com</p>
+            <p>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc4c3cbc2edc6dfc4ded9c8cec5dec2c1d8dec4c3c9c283cec2c0">[email&#160;protected]</a></p>
+        </div>
+    </div>
+    <div class="footer-kerjasama">
+        <h4>Klien &amp; Mitra Kerja</h4>
+        <div class="kerjasama-list">
+            <span class="kerjasama-badge">🏪 Indomaret</span>
+            <span class="kerjasama-badge">🏪 Alfamart</span>
+            <span class="kerjasama-badge">🏠 Rukita</span>
+            <span class="kerjasama-badge">☕ Janji Jiwa</span>
+            <span class="kerjasama-badge">🏭 Indofood</span>
         </div>
     </div>
     <div class="footer-bottom">
@@ -160,10 +175,10 @@
     </div>
 </footer>
 
-<a href="https://wa.me/625162817158" target="_blank" class="wa-float" title="Chat WhatsApp">💬</a>
+<a href="https://wa.me/6285162817158" target="_blank" class="wa-float" title="Chat WhatsApp">💬</a>
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 window.addEventListener('load', () => {
     setTimeout(() => { document.getElementById('pageLoader').classList.add('hidden'); }, 1200);
 });
@@ -213,13 +228,3 @@ const counterObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-});
-</script>
-
-@yield('scripts')
-</body>
-</html>
