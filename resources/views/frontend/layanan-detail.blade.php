@@ -58,6 +58,7 @@
         max-height: 500px;
         display: block;
         box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        margin-bottom: 60px;
     }
     .detail-foto-placeholder {
         width: 100%;
@@ -68,6 +69,20 @@
         align-items: center;
         justify-content: center;
         font-size: 80px;
+        margin-bottom: 60px;
+    }
+
+    /* SECTION ITEM */
+    .section-divider {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 40px 0;
+    }
+    .section-judul {
+        font-size: 32px;
+        font-weight: 800;
+        color: #1a2e4a;
+        margin-bottom: 20px;
     }
 
     /* SIDEBAR */
@@ -107,8 +122,6 @@
         color: #1a6fd4;
         border-left-color: #1a6fd4;
     }
-    .sidebar-layanan-list a .icon { font-size: 16px; }
-
     .sidebar-cta {
         background: linear-gradient(135deg, #1a2e4a, #1a6fd4);
         border-radius: 14px;
@@ -134,6 +147,7 @@
     @media (max-width: 768px) {
         .detail-wrapper { grid-template-columns: 1fr; padding: 40px 20px; gap: 30px; }
         .detail-content h2 { font-size: 28px; }
+        .section-judul { font-size: 22px; }
         .detail-sidebar { position: static; }
         .page-hero h1 { font-size: 28px; }
     }
@@ -155,17 +169,31 @@
 
 <div class="detail-wrapper">
     {{-- KONTEN UTAMA --}}
-    <div class="detail-content reveal">
-        <h2>{{ $layanan->nama }}</h2>
-        <p>{{ $layanan->deskripsi }}</p>
+    <div class="detail-content">
+        {{-- Section utama --}}
+        <div class="reveal">
+            <h2>{{ $layanan->nama }}</h2>
+            <p>{{ $layanan->deskripsi }}</p>
 
-        @if($layanan->foto)
-            <img src="{{ Storage::url($layanan->foto) }}"
-                 alt="{{ $layanan->nama }}"
-                 class="detail-foto">
-        @else
-            <div class="detail-foto-placeholder">{{ $layanan->icon ?? '⚡' }}</div>
-        @endif
+            @if($layanan->foto)
+                <img src="{{ Storage::url($layanan->foto) }}" alt="{{ $layanan->nama }}" class="detail-foto">
+            @else
+                <div class="detail-foto-placeholder">{{ $layanan->icon ?? '⚡' }}</div>
+            @endif
+        </div>
+
+        {{-- Sections tambahan --}}
+        @foreach($layanan->sections as $section)
+        <hr class="section-divider">
+        <div class="reveal">
+            <h3 class="section-judul">{{ $section->judul }}</h3>
+            <p>{{ $section->deskripsi }}</p>
+
+            @if($section->foto)
+                <img src="{{ Storage::url($section->foto) }}" alt="{{ $section->judul }}" class="detail-foto">
+            @endif
+        </div>
+        @endforeach
     </div>
 
     {{-- SIDEBAR --}}
@@ -176,7 +204,7 @@
                 @foreach($layanans as $item)
                     <a href="{{ route('layanan.detail', $item->slug) }}"
                        class="{{ $item->id === $layanan->id ? 'active' : '' }}">
-                        <span class="icon">{{ $item->icon ?? '⚡' }}</span>
+                        <span>{{ $item->icon ?? '⚡' }}</span>
                         {{ $item->nama }}
                     </a>
                 @endforeach
