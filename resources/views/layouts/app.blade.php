@@ -102,7 +102,7 @@
 <nav class="navbar" id="navbar">
     <div class="navbar-logo">
         <a href="{{ route('home') }}" style="text-decoration:none">
-            <span style="font-size:18px;font-weight:800;color:#1a2e4a">Kristech<span style="color:#1a6fd4"> Solusindo</span></span>
+            <img src="{{ asset('images/logo.png') }}" alt="Kristech Solusindo Energi" style="height:50px;width:auto;display:block">
         </a>
     </div>
 
