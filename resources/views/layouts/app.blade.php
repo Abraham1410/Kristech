@@ -158,11 +158,11 @@
     <div class="footer-kerjasama">
         <h4>Klien &amp; Mitra Kerja</h4>
         <div class="kerjasama-list">
-            <span class="kerjasama-badge">🏪 Indomaret</span>
-            <span class="kerjasama-badge">🏪 Alfamart</span>
-            <span class="kerjasama-badge">🏠 Rukita</span>
-            <span class="kerjasama-badge">☕ Janji Jiwa</span>
-            <span class="kerjasama-badge">🏭 Indofood</span>
+            <div class="kerjasama-logo"><img src="{{ asset('images/indomaret.png') }}" alt="Indomaret"></div>
+            <div class="kerjasama-logo"><img src="{{ asset('images/alfamart.png') }}" alt="Alfamart"></div>
+            <div class="kerjasama-logo"><img src="{{ asset('images/rukita.png') }}" alt="Rukita"></div>
+            <div class="kerjasama-logo"><img src="{{ asset('images/janjijiwa.png') }}" alt="Janji Jiwa"></div>
+            <div class="kerjasama-logo"><img src="{{ asset('images/indofood.png') }}" alt="Indofood"></div>
         </div>
     </div>
 
