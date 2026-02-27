@@ -70,9 +70,10 @@
         .footer a:hover { color: #fff; padding-left: 6px; }
 
         .footer-kerjasama { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; margin-top: 0; margin-bottom: 28px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-        .footer-kerjasama h4 { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        .kerjasama-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-        .kerjasama-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #ccc; font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; }
+        .footer-kerjasama h4 { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .kerjasama-list { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+        .kerjasama-logo { background: #fff; border-radius: 10px; padding: 10px 18px; display: flex; align-items: center; justify-content: center; height: 60px; }
+        .kerjasama-logo img { height: 36px; width: auto; object-fit: contain; display: block; }
 
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 13px; max-width: 1100px; margin: 0 auto; }
         .counter { display: inline-block; }
