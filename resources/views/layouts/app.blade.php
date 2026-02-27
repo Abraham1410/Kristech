@@ -6,9 +6,11 @@
     <title>@yield('title', 'Kristech Solusindo Energi')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; overflow-x: hidden; }
+
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -21,19 +23,21 @@
         .delay-4 { transition-delay: 0.4s; }
         .delay-5 { transition-delay: 0.5s; }
         .delay-6 { transition-delay: 0.6s; }
+
         .topbar { background: #1a2e4a; text-align: center; padding: 10px; font-size: 13px; letter-spacing: 1.5px; color: #aab; position: relative; overflow: hidden; }
         .topbar::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); animation: shimmer 3s infinite; }
         @keyframes shimmer { 0% { left: -100%; } 100% { left: 200%; } }
+
         .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); padding: 16px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 20px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; transition: all 0.3s ease; }
         .navbar.scrolled { padding: 12px 60px; box-shadow: 0 4px 30px rgba(0,0,0,0.12); }
-        .navbar-logo img { height: 55px; transition: height 0.3s; }
-        .navbar.scrolled .navbar-logo img { height: 45px; }
+
         .navbar-menu { display: flex; gap: 32px; list-style: none; align-items: center; }
         .navbar-menu > li { position: relative; }
         .navbar-menu a { color: #333; text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; position: relative; padding-bottom: 4px; display: flex; align-items: center; gap: 4px; }
         .navbar-menu > li > a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #1a6fd4; transition: width 0.3s ease; }
         .navbar-menu > li > a:hover::after, .navbar-menu > li > a.active::after { width: 100%; }
         .navbar-menu a:hover, .navbar-menu a.active { color: #1a6fd4; }
+
         .nav-dropdown { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%) translateY(-8px); background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); min-width: 200px; padding: 8px 0; opacity: 0; visibility: hidden; transition: all 0.25s ease; z-index: 999; }
         .nav-dropdown::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 6px solid #fff; }
         .navbar-menu li:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
@@ -43,39 +47,36 @@
         .nav-dropdown-divider { border: none; border-top: 1px solid #f0f0f0; margin: 4px 0; }
         .dropdown-arrow { font-size: 10px; transition: transform 0.2s; display: inline-block; }
         .navbar-menu li:hover .dropdown-arrow { transform: rotate(180deg); }
+
         .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
         .hamburger span { display: block; width: 24px; height: 2px; background: #1a2e4a; transition: all 0.3s; }
         .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
         .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 46px; height: 46px; background: #1a6fd4; color: #fff; border: none; border-radius: 50%; font-size: 20px; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 999; box-shadow: 0 4px 15px rgba(26,111,212,0.4); }
         .back-to-top.show { opacity: 1; transform: translateY(0); }
         .back-to-top:hover { background: #1a2e4a; transform: translateY(-3px); }
+
         .wa-float { position: fixed; bottom: 85px; right: 30px; width: 50px; height: 50px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 26px; box-shadow: 0 4px 15px rgba(37,211,102,0.4); z-index: 999; transition: transform 0.3s; animation: pulse-wa 2s infinite; }
         .wa-float:hover { transform: scale(1.1); }
         @keyframes pulse-wa { 0%, 100% { box-shadow: 0 4px 15px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 25px rgba(37,211,102,0.7); } }
+
         .footer { background: #1a2e4a; padding: 60px 60px 30px; color: #aaa; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
-        .footer-kerjasama { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px; margin-bottom: 30px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-        .footer-kerjasama h4 { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-        .kerjasama-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-        .kerjasama-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #ccc; font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; transition: all 0.2s; }
-        .kerjasama-badge:hover { background: rgba(255,255,255,0.15); color: #fff; }
         .footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 18px; }
         .footer p { font-size: 14px; line-height: 1.8; }
         .footer a { color: #aaa; text-decoration: none; font-size: 14px; display: block; margin-bottom: 10px; transition: all 0.2s; padding-left: 0; }
         .footer a:hover { color: #fff; padding-left: 6px; }
+
+        .footer-kerjasama { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; margin-top: 0; margin-bottom: 28px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+        .footer-kerjasama h4 { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .kerjasama-list { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .kerjasama-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #ccc; font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; }
+
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 13px; max-width: 1100px; margin: 0 auto; }
         .counter { display: inline-block; }
-        .page-loader { position: fixed; inset: 0; background: #1a2e4a; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        .page-loader.hidden { opacity: 0; pointer-events: none; }
-        .loader-logo { animation: loader-pulse 1s ease infinite; }
-        .loader-logo h2 { color: #fff; font-size: 24px; font-weight: 800; }
-        .loader-logo span { color: #1a6fd4; }
-        .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 3px; margin-top: 20px; overflow: hidden; }
-        .loader-bar-fill { height: 100%; background: #1a6fd4; border-radius: 3px; animation: loading 1.2s ease forwards; }
-        @keyframes loading { from { width: 0; } to { width: 100%; } }
-        @keyframes loader-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
         @media (max-width: 768px) {
             .navbar { padding: 14px 20px; }
             .navbar-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; padding: 20px; gap: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
@@ -88,16 +89,10 @@
             .footer-grid { grid-template-columns: 1fr; gap: 24px; }
         }
     </style>
+
     @yield('styles')
 </head>
 <body>
-
-<div class="page-loader" id="pageLoader">
-    <div class="loader-logo" style="text-align:center">
-        <h2>Kristech <span>Solusindo</span></h2>
-        <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    </div>
-</div>
 
 <div class="topbar">
     ✨ HARGA TERJANGKAU DENGAN KUALITAS INSTALASI PROFESIONAL
@@ -156,9 +151,10 @@
         <div class="reveal delay-3">
             <h4>Kontak</h4>
             <p>📞 +6285162817158</p><br>
-            <p>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc4c3cbc2edc6dfc4ded9c8cec5dec2c1d8dec4c3c9c283cec2c0">[email&#160;protected]</a></p>
+            <p>✉️ info@kristechsolusindo.com</p>
         </div>
     </div>
+
     <div class="footer-kerjasama">
         <h4>Klien &amp; Mitra Kerja</h4>
         <div class="kerjasama-list">
@@ -169,6 +165,7 @@
             <span class="kerjasama-badge">🏭 Indofood</span>
         </div>
     </div>
+
     <div class="footer-bottom">
         <p>© {{ date('Y') }} Kristech Solusindo Energi. All rights reserved.</p>
     </div>
@@ -177,57 +174,57 @@
 <a href="https://wa.me/6285162817158" target="_blank" class="wa-float" title="Chat WhatsApp">💬</a>
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Fix loader - pastikan hilang meski ada error
-function hideLoader() {
-    const loader = document.getElementById('pageLoader');
-    if (loader) loader.classList.add('hidden');
-}
-window.addEventListener('load', () => setTimeout(hideLoader, 1200));
-setTimeout(hideLoader, 3000); // fallback paksa hilang setelah 3 detik
+<script>
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-    document.getElementById('backToTop').classList.toggle('show', window.scrollY > 400);
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+    var btn = document.getElementById('backToTop');
+    if (window.scrollY > 400) { btn.classList.add('show'); } else { btn.classList.remove('show'); }
 });
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-hamburger.addEventListener('click', () => {
+
+var hamburger = document.getElementById('hamburger');
+var navMenu = document.getElementById('navMenu');
+hamburger.addEventListener('click', function() {
     hamburger.classList.toggle('open');
     navMenu.classList.toggle('open');
 });
-// Mobile dropdown toggle
-document.querySelectorAll('.navbar-menu > li > a').forEach(link => {
+
+document.querySelectorAll('.navbar-menu > li > a').forEach(function(link) {
     link.addEventListener('click', function(e) {
-        const li = this.parentElement;
+        var li = this.parentElement;
         if (window.innerWidth <= 768 && li.querySelector('.nav-dropdown')) {
             e.preventDefault();
             li.classList.toggle('dropdown-open');
         }
     });
 });
-const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+
+var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold: 0.1 });
-revealElements.forEach(el => observer.observe(el));
-function animateCounter(el, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
+revealElements.forEach(function(el) { observer.observe(el); });
+
+function animateCounter(el, target, duration) {
+    var start = 0;
+    var increment = target / (duration / 16);
+    var timer = setInterval(function() {
         start += increment;
         if (start >= target) { el.textContent = target; clearInterval(timer); }
         else { el.textContent = Math.floor(start); }
     }, 16);
 }
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
         if (entry.isIntersecting && !entry.target.dataset.counted) {
             entry.target.dataset.counted = true;
-            animateCounter(entry.target, parseInt(entry.target.dataset.target));
+            animateCounter(entry.target, parseInt(entry.target.dataset.target), 2000);
         }
     });
 }, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+document.querySelectorAll('.counter').forEach(function(el) { counterObserver.observe(el); });
+</script>
+
+@yield('scripts')
+</body>
+</html>
