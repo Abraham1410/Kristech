@@ -106,9 +106,8 @@
 @php $navLayanans = \App\Models\Layanan::where('aktif', true)->orderBy('urutan')->get(); @endphp
 <nav class="navbar" id="navbar">
     <div class="navbar-logo">
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Kristech Logo"
-                 onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:800;color:#1a2e4a\'>Kristech<span style=\'color:#1a6fd4\'> Solusindo</span></span>'">
+        <a href="{{ route('home') }}" style="text-decoration:none">
+            <span style="font-size:18px;font-weight:800;color:#1a2e4a">Kristech<span style="color:#1a6fd4"> Solusindo</span></span>
         </a>
     </div>
 
@@ -179,9 +178,13 @@
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('pageLoader').classList.add('hidden'); }, 1200);
-});
+// Fix loader - pastikan hilang meski ada error
+function hideLoader() {
+    const loader = document.getElementById('pageLoader');
+    if (loader) loader.classList.add('hidden');
+}
+window.addEventListener('load', () => setTimeout(hideLoader, 1200));
+setTimeout(hideLoader, 3000); // fallback paksa hilang setelah 3 detik
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
